@@ -10,7 +10,6 @@
 			this.targetSelectBox = targetSelectBox;
 			this.createDataIndex();
 			this.createSearchBox();
-			targetSelectBox.size = 5;
 		}
 
 		createDataIndex() {
@@ -37,6 +36,15 @@
 						return text.includes(query);
 					}) ? "" : "none";
 				});
+			});
+			searchBox.addEventListener("focus", () => {
+				this.targetSelectBox.size = 10;
+			});
+			searchBox.addEventListener("blur", () => {
+				window.setTimeout(() => {
+					// blurと同時にsize=1にすると選択できないため
+					this.targetSelectBox.size = 1;
+				}, 100);
 			});
 
 			searchBoxContainer.appendChild(searchBox);
