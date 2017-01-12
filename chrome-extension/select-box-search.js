@@ -57,4 +57,26 @@
 		new SelectBoxFilter(selectBox);
 	});
 
+	// 要素の動的挿入に対応
+	{
+		const target = document.body;
+		const config = {
+			childList: true,
+			subtree: true
+		};
+		new MutationObserver(mutations => {
+			mutations.forEach(mutation => {
+				mutation.addedNodes.forEach(addedNode => {
+					if (addedNode.tagName === "SELECT") {
+						new SelectBoxFilter(addedNode);
+					} else {
+						if (!addedNode.querySelectorAll) return;
+						addedNode.querySelectorAll("select").forEach(selectBox => {
+							new SelectBoxFilter(selectBox);
+						});
+					}
+				});
+			});
+		}).observe(target, config);
+	}
 }
