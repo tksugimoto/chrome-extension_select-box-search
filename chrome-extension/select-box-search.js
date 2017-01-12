@@ -64,7 +64,8 @@
 			childList: true,
 			subtree: true
 		};
-		new MutationObserver(mutations => {
+		const observer = new MutationObserver(mutations => {
+			stop();
 			mutations.forEach(mutation => {
 				mutation.addedNodes.forEach(addedNode => {
 					if (addedNode.tagName === "SELECT") {
@@ -77,6 +78,14 @@
 					}
 				});
 			});
-		}).observe(target, config);
+			start();
+		});
+		const start = () => {
+			observer.observe(target, config);
+		};
+		const stop = () => {
+			observer.disconnect();
+		};
+		start();
 	}
 }
