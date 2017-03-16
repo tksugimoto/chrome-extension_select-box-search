@@ -44,7 +44,7 @@
 				window.setTimeout(() => {
 					// blurと同時にsize=1にすると選択できないため
 					this.targetSelectBox.size = 1;
-				}, 100);
+				}, 500);
 			});
 
 			searchBoxContainer.appendChild(searchBox);
